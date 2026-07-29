@@ -1,37 +1,34 @@
-Exit code: 0
-Wall time: 1.3 seconds
-Output:
 export const DEMO_TEAM = {
   serial: 'MC26-A7K4-P9Q2',
-  name: '?ㅻ줈??移⑺?',
-  school: '?쒓뎅??숆탳',
-  department: '?꾩옄怨듯븰怨?,
+  name: '오로라 칩팀',
+  school: '한국대학교',
+  department: '전자공학과',
 };
 
 export const KNOWLEDGE_SOURCES = [
   {
     id: 'note-1',
-    title: '?곌뎄?명듃 1 쨌 媛??癒몄떊 由щ늼???ㅼ튂',
+    title: '연구노트 1 · 가상 머신 리눅스 설치',
     citation: 'pp. 2-6',
   },
   {
     id: 'note-2',
-    title: '?곌뎄?명듃 2 쨌 ?ㅽ뵂-?뚯뒪 諛섎룄泥??ㅺ퀎 ?꾧뎄 ?ㅼ튂',
+    title: '연구노트 2 · 오픈-소스 반도체 설계 도구 설치',
     citation: 'pp. 2, 5-12',
   },
   {
     id: 'note-5',
-    title: '?곌뎄?명듃 5 쨌 CMOS ?몃쾭???뚮줈???묒꽦怨?SPICE ?쒕??덉씠??,
+    title: '연구노트 5 · CMOS 인버터 회로도 작성과 SPICE 시뮬레이션',
     citation: 'pp. 2, 4-17',
   },
   {
     id: 'note-6',
-    title: '?곌뎄?명듃 6 쨌 CMOS ?몃쾭???덉씠?꾩썐 洹몃━湲곗? SPICE ?쒕??덉씠??,
+    title: '연구노트 6 · CMOS 인버터 레이아웃 그리기와 SPICE 시뮬레이션',
     citation: 'pp. 2-3, 13-16',
   },
   {
     id: 'note-7',
-    title: '?곌뎄?명듃 7 쨌 ?뚮줈?꾩? ?덉씠?꾩썐?먯꽌 異붿텧???뚮줈??鍮꾧탳(LVS)',
+    title: '연구노트 7 · 회로도와 레이아웃에서 추출한 회로의 비교(LVS)',
     citation: 'pp. 2-5, 8-11',
   },
 ];
@@ -63,18 +60,18 @@ export function findKnowledgeSources(question) {
 
   if (
     text.includes('ubuntu') ||
-    text.includes('?ㅼ튂') ||
+    text.includes('설치') ||
     text.includes('vmware') ||
     text.includes('virtualbox')
   ) {
     return KNOWLEDGE_SOURCES.filter((source) => ['note-1', 'note-2'].includes(source.id));
   }
 
-  if (text.includes('xschem') || text.includes('?뚮줈??) || text.includes('spice')) {
+  if (text.includes('xschem') || text.includes('회로도') || text.includes('spice')) {
     return KNOWLEDGE_SOURCES.filter((source) => source.id === 'note-5');
   }
 
-  if (text.includes('magic') || text.includes('drc') || text.includes('?덉씠?꾩썐')) {
+  if (text.includes('magic') || text.includes('drc') || text.includes('레이아웃')) {
     return KNOWLEDGE_SOURCES.filter((source) => source.id === 'note-6');
   }
 
@@ -100,4 +97,3 @@ export function rankKnowledgeChunks(question, chunks, limit = 3, preferredDocume
     .sort((left, right) => right.score - left.score || left.page - right.page)
     .slice(0, limit);
 }
-
