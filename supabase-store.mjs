@@ -1,6 +1,3 @@
-Exit code: 0
-Wall time: 1.4 seconds
-Output:
 export function normalizeSerial(serial) {
   return String(serial ?? '').trim().toUpperCase();
 }
@@ -47,4 +44,3 @@ export function createRemoteStore({ apiUrl, publishableKey, fetchFn = fetch }) {
     },
   };
 }
-
