@@ -27,7 +27,7 @@ input,textarea { background:#fff; border:1px solid #ddd6ca; border-radius:10px; 
 .primary-button:hover,.support-button:hover { transform:translateY(-2px); }
 .primary-button span { color:var(--mint); font-size:17px; margin-left:6px; }
 .text-button { background:transparent; border:0; padding:0; color:var(--coral); text-decoration:underline; }
-.hero-art { min-height:480px; background-image:url('./assets/og.png'); background-position:center; background-size:cover; border-radius:28px; box-shadow:0 25px 55px #18294e2b; }
+.hero-art { min-height:480px; background:radial-gradient(circle at 72% 30%,#f6b3a5 0 6%,transparent 6.2%),radial-gradient(circle at 32% 67%,#8fdbca 0 12%,transparent 12.2%),linear-gradient(135deg,#193055,#396883 49%,#e6c77a); border-radius:28px; box-shadow:0 25px 55px #18294e2b; }
 .promise-grid { border-top:1px solid var(--line); max-width:1180px; margin:auto; padding:38px 0 50px; display:grid; grid-template-columns:repeat(3,1fr); }
 .promise-grid article { padding:0 30px; border-right:1px solid var(--line); }.promise-grid article:last-child{border:0}.promise-grid b{font-family:var(--mono);color:var(--coral);font-size:12px}.promise-grid h2{font-size:18px;margin:13px 0 7px;letter-spacing:-.05em}.promise-grid p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
 .workspace { min-height:100vh; display:grid; grid-template-columns:295px 1fr; background:#f5f0e7; }
