@@ -51,6 +51,14 @@ export function findDemoTeamBySerial(serial) {
   return normalized === DEMO_TEAM.serial ? DEMO_TEAM : null;
 }
 
+export function selectParticipantStage(currentState, stageId) {
+  return {
+    ...currentState,
+    activeStage: stageId,
+    view: 'stage',
+  };
+}
+
 export function findKnowledgeSources(question) {
   const text = String(question).toLowerCase();
 
