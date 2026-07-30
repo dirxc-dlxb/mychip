@@ -4,6 +4,7 @@ import {
   findDemoTeamBySerial,
   findKnowledgeSources,
   rankKnowledgeChunks,
+  selectParticipantStage,
 } from './app-state.mjs';
 import {
   createInitialChecks,
@@ -212,7 +213,7 @@ function openAssistant() {
 function bindEvents() {
   document.querySelectorAll('[data-action="home"]').forEach((button) => button.addEventListener('click', () => updateView('landing')));
   document.querySelectorAll('[data-action="dashboard"]').forEach((button) => button.addEventListener('click', () => updateView('dashboard')));
-  document.querySelectorAll('[data-stage]').forEach((button) => button.addEventListener('click', () => { state.activeStage = button.dataset.stage; state.view = button.dataset.stage === 'welcome' ? 'dashboard' : 'stage'; saveState(); render(); }));
+  document.querySelectorAll('[data-stage]').forEach((button) => button.addEventListener('click', () => { state = selectParticipantStage(state, button.dataset.stage); saveState(); render(); }));
   document.querySelectorAll('[data-check]').forEach((input) => input.addEventListener('change', () => { state.checks[input.dataset.check] = input.checked; saveState(); remoteStore?.saveChecklist(DEMO_TEAM.serial, input.dataset.check, input.checked).catch(() => {}); render(); }));
   document.querySelector('[data-action="demo"]')?.addEventListener('click', () => updateView('dashboard'));
   document.querySelector('[data-action="access"]')?.addEventListener('click', accessSerial);
