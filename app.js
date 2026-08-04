@@ -72,7 +72,9 @@ function updateView(view) {
 }
 
 function trackGuideStarted(entryPoint) {
-  window.rybbit?.trackEvent('guide_started', { entry_point: entryPoint });
+  if (typeof window.rybbit?.trackEvent === 'function') {
+    window.rybbit.trackEvent('guide_started', { entry_point: entryPoint });
+  }
 }
 
 function landingView() {
