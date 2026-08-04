@@ -14,7 +14,16 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Dodum&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script src="https://app.rybbit.io/api/script.js" data-site-id="6ec9b20406aa" defer></script>
+    <script>
+      const RYBBIT_PRODUCTION_HOST = 'mychip.vercel.app';
+      if (window.location.hostname === RYBBIT_PRODUCTION_HOST) {
+        const analyticsScript = document.createElement('script');
+        analyticsScript.src = 'https://app.rybbit.io/api/script.js';
+        analyticsScript.dataset.siteId = '6ec9b20406aa';
+        analyticsScript.defer = true;
+        document.head.append(analyticsScript);
+      }
+    </script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
