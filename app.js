@@ -71,10 +71,32 @@ function updateView(view) {
   render();
 }
 
+const guideStartEventKey = 'mychip-guide-started';
+const guideStartRetryDelays = [0, 250, 500, 1000, 2000];
+let guideStartQueued = false;
+
 function trackGuideStarted(entryPoint) {
-  if (typeof window.rybbit?.trackEvent === 'function') {
-    window.rybbit.trackEvent('guide_started', { entry_point: entryPoint });
-  }
+  if (window.location.hostname !== 'mychip.vercel.app') return;
+  if (guideStartQueued || sessionStorage.getItem(guideStartEventKey)) return;
+
+  guideStartQueued = true;
+
+  const sendWhenReady = (attempt = 0) => {
+    if (typeof window.rybbit?.trackEvent === 'function') {
+      window.rybbit.trackEvent('guide_started', { entry_point: entryPoint });
+      sessionStorage.setItem(guideStartEventKey, '1');
+      return;
+    }
+
+    if (attempt === guideStartRetryDelays.length - 1) {
+      guideStartQueued = false;
+      return;
+    }
+
+    window.setTimeout(() => sendWhenReady(attempt + 1), guideStartRetryDelays[attempt + 1]);
+  };
+
+  sendWhenReady();
 }
 
 function landingView() {
