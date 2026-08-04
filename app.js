@@ -71,6 +71,10 @@ function updateView(view) {
   render();
 }
 
+function trackGuideStarted(entryPoint) {
+  window.rybbit?.trackEvent('guide_started', { entry_point: entryPoint });
+}
+
 function landingView() {
   return `
     <section class="landing">
@@ -192,7 +196,10 @@ function submitQuestion(question) {
 function accessSerial() {
   const input = document.querySelector('#serial-input');
   const message = document.querySelector('#serial-message');
-  if (findDemoTeamBySerial(input.value)) updateView('dashboard');
+  if (findDemoTeamBySerial(input.value)) {
+    trackGuideStarted('serial');
+    updateView('dashboard');
+  }
   else message.innerHTML = '시리얼 번호를 확인해 주세요. 데모 번호는 <code>MC26-A7K4-P9Q2</code>입니다.';
 }
 
@@ -215,7 +222,10 @@ function bindEvents() {
   document.querySelectorAll('[data-action="dashboard"]').forEach((button) => button.addEventListener('click', () => updateView('dashboard')));
   document.querySelectorAll('[data-stage]').forEach((button) => button.addEventListener('click', () => { state = selectParticipantStage(state, button.dataset.stage); saveState(); render(); }));
   document.querySelectorAll('[data-check]').forEach((input) => input.addEventListener('change', () => { state.checks[input.dataset.check] = input.checked; saveState(); remoteStore?.saveChecklist(DEMO_TEAM.serial, input.dataset.check, input.checked).catch(() => {}); render(); }));
-  document.querySelector('[data-action="demo"]')?.addEventListener('click', () => updateView('dashboard'));
+  document.querySelector('[data-action="demo"]')?.addEventListener('click', () => {
+    trackGuideStarted('demo');
+    updateView('dashboard');
+  });
   document.querySelector('[data-action="access"]')?.addEventListener('click', accessSerial);
   document.querySelector('#serial-input')?.addEventListener('keydown', (event) => { if (event.key === 'Enter') accessSerial(); });
   document.querySelectorAll('[data-action="open-ai"]').forEach((button) => button.addEventListener('click', openAssistant));
