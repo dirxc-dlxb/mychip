@@ -9,17 +9,17 @@ const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
 
 assert.match(
   page,
-  /const RYBBIT_PRODUCTION_HOST = 'mychip\\.vercel\\.app'/,
+  /const RYBBIT_PRODUCTION_HOST = 'mychip\.vercel\.app'/,
   'analytics must load only on the production domain',
 );
 assert.doesNotMatch(
   page,
-  /<script src="https:\/\/app\\.rybbit\\.io\/api\/script\\.js"/,
+  /<script src="https:\/\/app\.rybbit\.io\/api\/script\.js"/,
   'analytics must not load unconditionally in previews or development',
 );
 assert.match(
   page,
-  /document\\.head\\.append\(analyticsScript\)/,
+  /document\.head\.append\(analyticsScript\)/,
   'the production page must load the analytics script dynamically',
 );
 assert.match(
@@ -29,16 +29,26 @@ assert.match(
 );
 assert.match(
   app,
-  /sessionStorage\\.getItem\(guideStartEventKey\)/,
+  /sessionStorage\.getItem\(guideStartEventKey\)/,
   'repeated guide starts in the same session must be ignored',
 );
 assert.match(
   app,
-  /typeof window\\.rybbit\\?\\.trackEvent === 'function'/,
+  /typeof window\.rybbit\?\.trackEvent === 'function'/,
   'the event must wait until Rybbit is ready',
+);
+assert.match(
+  app,
+  /trackGuideStarted\('serial'\);\s*updateView\('dashboard'\);/,
+  'a valid serial must track before opening the guide',
+);
+assert.match(
+  app,
+  /trackGuideStarted\('demo'\);\s*updateView\('dashboard'\);/,
+  'the demo button must track before opening the guide',
 );
 assert.doesNotMatch(
   app,
-  /trackEvent\\('guide_started',[\\s\\S]{0,160}input\\.value/,
+  /trackEvent\('guide_started',[\s\S]{0,160}input\.value/,
   'the event payload must not include the entered serial number',
 );
