@@ -19,6 +19,21 @@ assert.doesNotMatch(
 );
 assert.match(
   page,
+  /analyticsScript\.src = 'https:\/\/analytics\.earnlearning\.com\/api\/script\.js'/,
+  'analytics must use the instructor-provided Rybbit endpoint',
+);
+assert.match(
+  page,
+  /analyticsScript\.dataset\.siteId = '29d42ae566b5'/,
+  'analytics must use the instructor-provided site ID',
+);
+assert.doesNotMatch(
+  page,
+  /app\.rybbit\.io\/api\/script\.js|6ec9b20406aa/,
+  'the previous Rybbit endpoint and site ID must be removed',
+);
+assert.match(
+  page,
   /document\.head\.append\(analyticsScript\)/,
   'the production page must load the analytics script dynamically',
 );
