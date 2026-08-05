@@ -3,8 +3,8 @@
 ## Scope
 
 - Production domain: `mychip.vercel.app`
-- Rybbit script: `https://app.rybbit.io/api/script.js`
-- Site ID: `6ec9b20406aa`
+- Rybbit script: `https://analytics.earnlearning.com/api/script.js`
+- Site ID: `29d42ae566b5`
 - Custom event: `guide_started`
 
 ## Privacy
@@ -32,4 +32,4 @@ A production-browser test verified that leaving and re-entering the demo opens t
 
 ## Reference
 
-Rybbit's custom-event API is `window.rybbit.trackEvent(eventName, eventData)`: https://www.rybbit.io/docs/guides/react/gatsby
+The instructor-provided Rybbit endpoint uses the same custom-event API: `window.rybbit.trackEvent(eventName, eventData)`: https://www.rybbit.io/docs/guides/react/gatsby
